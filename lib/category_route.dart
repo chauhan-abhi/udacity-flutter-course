@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:task_02_category_widget/category.dart';
 import 'package:task_02_category_widget/unit.dart';
 
-// TODO: Define any constants
 final _backgroundColor = Colors.green[100];
 
 /// Category Route (screen).
@@ -12,8 +11,17 @@ final _backgroundColor = Colors.green[100];
 ///
 /// While it is named CategoryRoute, a more apt name would be CategoryScreen,
 /// because it is responsible for the UI at the route's destination.
-class CategoryRoute extends StatelessWidget {
+class CategoryRoute extends StatefulWidget {
   const CategoryRoute();
+
+  @override
+  State<StatefulWidget> createState() {
+    return CategoryRouteState();
+  }
+}
+
+class CategoryRouteState extends State<CategoryRoute> {
+  final categories = <Category>[];
 
   static const _categoryNames = <String>[
     'Length',
@@ -38,12 +46,8 @@ class CategoryRoute extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) {
-    // TODO: Create a list of the eight Categories, using the names and colors
-    // from above. Use a placeholder icon, such as `Icons.cake` for each
-    // Category. We'll add custom icons later.
-    final categories = <Category>[];
-
+  void initState() {
+    super.initState();
     for (var i = 0; i < _categoryNames.length; i++) {
       categories.add(Category(
         name: _categoryNames[i],
@@ -52,6 +56,28 @@ class CategoryRoute extends StatelessWidget {
         units: _retrieveUnitList(_categoryNames[i]),
       ));
     }
+  }
+
+  _buildCategoryWidget(List<Category> categories) {
+    return ListView.builder(
+      itemBuilder: (BuildContext context, int index) => categories[index],
+      itemCount: categories.length,
+    );
+  }
+
+  /// Returns a list of mock [Unit]s.
+  List<Unit> _retrieveUnitList(String categoryName) {
+    return List.generate(10, (int i) {
+      i += 1;
+      return Unit(
+        name: '$categoryName Unit $i',
+        conversion: i.toDouble(),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
 
     final listView = Container(
       color: _backgroundColor,
@@ -73,23 +99,5 @@ class CategoryRoute extends StatelessWidget {
       appBar: appBar,
       body: listView,
     );
-  }
-
-  _buildCategoryWidget(List<Category> categories) {
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) => categories[index],
-      itemCount: categories.length,
-    );
-  }
-
-  /// Returns a list of mock [Unit]s.
-  List<Unit> _retrieveUnitList(String categoryName) {
-    return List.generate(10, (int i) {
-      i += 1;
-      return Unit(
-        name: '$categoryName Unit $i',
-        conversion: i.toDouble(),
-      );
-    });
   }
 }
