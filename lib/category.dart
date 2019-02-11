@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 // @required is defined in the meta.dart package
 import 'package:meta/meta.dart';
+import 'package:task_02_category_widget/unit.dart';
 
 final _rowHeight = 100.0;
 final _borderRadius = BorderRadius.circular(_rowHeight / 2);
@@ -10,6 +11,7 @@ class Category extends StatelessWidget {
   final String name;
   final ColorSwatch color; // ColorSwatch extends Color
   final IconData iconLocation;
+  final List<Unit> units;
 
   // While the @required checks for whether a named parameter is passed in,
   // it doesn't check whether the object passed in is null. We check that
@@ -18,10 +20,12 @@ class Category extends StatelessWidget {
       {Key key,
       @required this.name,
       @required this.color,
-      @required this.iconLocation})
+      @required this.iconLocation,
+      @required this.units})
       : assert(name != null),
         assert(color != null),
         assert(iconLocation != null),
+        assert(units != null),
         super(key: key);
 
   @override
