@@ -27,6 +27,23 @@ class ConverterRoute extends StatefulWidget {
 }
 
 class ConverterRouteState extends State<ConverterRoute> {
+
+  /// Clean up conversion; trim trailing zeros, e.g. 5.500 -> 5.5, 10.0 -> 10
+  String _format(double conversion) {
+    var outputNum = conversion.toStringAsPrecision(7);
+    if (outputNum.contains('.') && outputNum.endsWith('0')) {
+      var i = outputNum.length - 1;
+      while (outputNum[i] == '0') {
+        i -= 1;
+      }
+      outputNum = outputNum.substring(0, i + 1);
+    }
+    if (outputNum.endsWith('.')) {
+      return outputNum.substring(0, outputNum.length - 1);
+    }
+    return outputNum;
+  }
+
   @override
   Widget build(BuildContext context) {
     // Here is just a placeholder for a list of mock units

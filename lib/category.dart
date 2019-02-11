@@ -10,7 +10,10 @@ final _borderRadius = BorderRadius.circular(_rowHeight / 2);
 
 class Category extends StatelessWidget {
   final String name;
-  final ColorSwatch color; // ColorSwatch extends Color
+  // ColorSwatch extends Color
+  // This is useful if a screen has to use same pallete of colors
+  // for different items like appbar, cards, button background
+  final ColorSwatch color;
   final IconData iconLocation;
   final List<Unit> units;
 
@@ -93,6 +96,7 @@ class Category extends StatelessWidget {
           backgroundColor: color[100],
         ),
         body: ConverterRoute(name: name, units: units, color: color),
+        resizeToAvoidBottomPadding: false,
       );
     }));
   }
