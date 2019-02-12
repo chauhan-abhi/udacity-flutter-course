@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:task_02_category_widget/category.dart';
 import 'package:task_02_category_widget/unit.dart';
 
+import 'category_tile.dart';
+
 final _backgroundColor = Colors.green[100];
 
 /// Category Route (screen).
@@ -21,7 +23,7 @@ class CategoryRoute extends StatefulWidget {
 }
 
 class CategoryRouteState extends State<CategoryRoute> {
-  final categories = <Category>[];
+  final _categories = <Category>[];
 
   static const _categoryNames = <String>[
     'Length',
@@ -74,7 +76,7 @@ class CategoryRouteState extends State<CategoryRoute> {
   void initState() {
     super.initState();
     for (var i = 0; i < _categoryNames.length; i++) {
-      categories.add(Category(
+      _categories.add(Category(
         name: _categoryNames[i],
         color: _baseColors[i],
         iconLocation: Icons.cake,
@@ -83,9 +85,16 @@ class CategoryRouteState extends State<CategoryRoute> {
     }
   }
 
+  void _onCategoryTap(Category category) {}
+
   _buildCategoryWidget(List<Category> categories) {
     return ListView.builder(
-      itemBuilder: (BuildContext context, int index) => categories[index],
+      itemBuilder: (BuildContext context, int index) {
+        return CategoryTile(
+          category: _categories[index],
+          onTap: _onCategoryTap,
+        );
+      },
       itemCount: categories.length,
     );
   }
@@ -106,7 +115,7 @@ class CategoryRouteState extends State<CategoryRoute> {
     final listView = Container(
       color: _backgroundColor,
       padding: EdgeInsets.symmetric(horizontal: 8.0),
-      child: _buildCategoryWidget(categories),
+      child: _buildCategoryWidget(_categories),
     );
 
     final appBar = AppBar(
