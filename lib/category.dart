@@ -10,6 +10,7 @@ final _borderRadius = BorderRadius.circular(_rowHeight / 2);
 
 class Category extends StatelessWidget {
   final String name;
+
   // ColorSwatch extends Color
   // This is useful if a screen has to use same pallete of colors
   // for different items like appbar, cards, button background
@@ -45,10 +46,9 @@ class Category extends StatelessWidget {
         height: _rowHeight,
         child: InkWell(
           borderRadius: _borderRadius,
-          highlightColor: color,
-          splashColor: color,
+          highlightColor: color['highlight'],
+          splashColor: color['splash'],
           onTap: () {
-            print('Tapped');
             _navigateToConverter(context);
           },
           child: Padding(
@@ -93,7 +93,7 @@ class Category extends StatelessWidget {
             style: Theme.of(context).textTheme.display1,
           ),
           centerTitle: true,
-          backgroundColor: color[100],
+          backgroundColor: color,
         ),
         body: ConverterRoute(name: name, units: units, color: color),
         resizeToAvoidBottomPadding: false,
