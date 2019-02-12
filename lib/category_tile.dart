@@ -11,9 +11,10 @@ class CategoryTile extends StatelessWidget {
   final Category category;
   final ValueChanged<Category> onTap;
 
-  const CategoryTile({@required this.category, @required this.onTap})
+  const CategoryTile({Key key, @required this.category, @required this.onTap})
       : assert(category != null),
-        assert(onTap != null);
+        assert(onTap != null),
+        super(key: key);
 
   /// Navigates to the [UnitConverter].
   void _navigateToConverter(BuildContext context) {

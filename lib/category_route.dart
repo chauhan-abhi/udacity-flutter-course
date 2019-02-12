@@ -85,6 +85,7 @@ class CategoryRouteState extends State<CategoryRoute> {
     }
   }
 
+  /// Function to call when a [Category] is tapped.
   void _onCategoryTap(Category category) {}
 
   _buildCategoryWidget(List<Category> categories) {

@@ -5,7 +5,6 @@ import 'package:meta/meta.dart';
 import 'package:task_02_category_widget/unit.dart';
 
 class Category {
-  final String name;
 
   // ColorSwatch extends Color
   // This is useful if a screen has to use same pallete of colors
@@ -13,6 +12,8 @@ class Category {
   final ColorSwatch color;
   final IconData iconLocation;
   final List<Unit> units;
+  final String name;
+
 
   // While the @required checks for whether a named parameter is passed in,
   // it doesn't check whether the object passed in is null. We check that
