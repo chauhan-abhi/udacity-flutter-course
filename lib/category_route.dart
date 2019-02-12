@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:task_02_category_widget/category.dart';
 import 'package:task_02_category_widget/unit.dart';
 
+import 'backdrop.dart';
 import 'category_tile.dart';
+import 'unit_converter.dart';
 
 final _backgroundColor = Colors.green[100];
 
@@ -23,6 +25,8 @@ class CategoryRoute extends StatefulWidget {
 }
 
 class CategoryRouteState extends State<CategoryRoute> {
+  Category _defaultCategory;
+  Category _currentCategory;
   final _categories = <Category>[];
 
   static const _categoryNames = <String>[
@@ -76,17 +80,25 @@ class CategoryRouteState extends State<CategoryRoute> {
   void initState() {
     super.initState();
     for (var i = 0; i < _categoryNames.length; i++) {
-      _categories.add(Category(
+      var category = Category(
         name: _categoryNames[i],
         color: _baseColors[i],
         iconLocation: Icons.cake,
         units: _retrieveUnitList(_categoryNames[i]),
-      ));
+      );
+      if (i == 0) {
+        _defaultCategory = category;
+      }
+      _categories.add(category);
     }
   }
 
   /// Function to call when a [Category] is tapped.
-  void _onCategoryTap(Category category) {}
+  void _onCategoryTap(Category category) {
+    setState(() {
+      _currentCategory = category;
+    });
+  }
 
   _buildCategoryWidget(List<Category> categories) {
     return ListView.builder(
@@ -119,7 +131,7 @@ class CategoryRouteState extends State<CategoryRoute> {
       child: _buildCategoryWidget(_categories),
     );
 
-    final appBar = AppBar(
+    /*final appBar = AppBar(
       elevation: 0.0,
       title: Text(
         'Unit Converter',
@@ -132,6 +144,18 @@ class CategoryRouteState extends State<CategoryRoute> {
     return Scaffold(
       appBar: appBar,
       body: listView,
+    );*/
+
+    // Backdrop code
+    return Backdrop(
+      currentCategory:
+          _currentCategory == null ? _defaultCategory : _currentCategory,
+      frontPanel: _currentCategory == null
+          ? UnitConverter(category: _defaultCategory)
+          : UnitConverter(category: _currentCategory),
+      backPanel: listView,
+      frontTitle: Text('Unit Converter'),
+      backTitle: Text('Select a Category'),
     );
   }
 }
